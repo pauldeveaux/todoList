@@ -6,10 +6,48 @@
     <div class="center">Nouvelle tâche</div>
     <div class="right">
       <ons-if platform="android">
-        <ons-toolbar-button component="button/save-task">
+        <ons-toolbar-button onclick="showToast()" component="button/save-task">
           <ons-icon icon="md-save"></ons-icon>
         </ons-toolbar-button>
       </ons-if>
     </div>
   </ons-toolbar>
+  <ons-list-header>Ajouter une nouvelle tâche</ons-list-header>
+  
+  
+  <div style="text-align: left; margin-left: 15px;">
+    <p>
+      <ons-input id="jeveux" modifier="underbar" placeholder="Je veux..." float></ons-input>
+    </p>
+    <p>
+      <ons-input id="categorie" modifier="" placeholder="Catégorie" float></ons-input>
+    </p>
+    <p>
+      <ons-input id="description" modifier="underbar" placeholder="La description" float></ons-input>
+    </p>
+
+  </div>
+
+  
+  <ons-list-header>Autres option</ons-list-header>
+  
+  <ons-list-item>
+    <div class="center">
+      Surligner !
+      </div>
+      <div class="right">
+      <ons-switch></ons-switch>
+    </div>
+  </ons-list-item>
+
+
+  <ons-list-item>
+    <div class="center">
+      Est-ce urgent !
+      </div>
+      <div class="right">
+      <ons-switch></ons-switch>
+    </div>
+  </ons-list-item>
+
 </ons-page>

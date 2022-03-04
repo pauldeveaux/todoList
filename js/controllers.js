@@ -24,3 +24,24 @@ myApp.controllers = {
   }
 
 };
+
+/**
+ * Notification succès
+ */
+var showToast = function() {
+  var jeveux = document.getElementById('jeveux').value;
+  var categorie = document.getElementById('categorie').value;
+  var description = document.getElementById('description').value;
+
+
+  ons.notification.toast('Enregistré!', {
+    timeout: 2000
+  });
+
+  
+};
+
+
+
+
+/**formulaire */
