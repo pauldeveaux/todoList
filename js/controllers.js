@@ -22,7 +22,6 @@ myApp.controllers = {
       element.show && element.show(); // Fix ons-fab in Safari.
     });
   }
-
 };
 
 /**
@@ -38,7 +37,7 @@ var showToast = function() {
     timeout: 2000
   });
 
-  
+
 };
 
 

@@ -8,7 +8,6 @@ myApp.services = {
   // Task Service //
   /////////////////
   tasks: {
-
     // Creates a new task and attaches it to the pending task list.
     create: function (data) {
       // Task item template.
@@ -30,11 +29,22 @@ myApp.services = {
       // Store data within the element.
       taskItem.data = data;
 
+      // Checkbox change
+      taskItem.onchange = function (){
+        if(taskItem.parentNode.id == "pending-list") {
+          let inProgressList = document.querySelector('#inProgress-list');
+          inProgressList.insertBefore(taskItem, taskItem.data.urgent ? inProgressList.firstChild : null);
+        }
+        else{
+          let pendingList = document.querySelector('#pending-list');
+          pendingList.insertBefore(taskItem, taskItem.data.urgent ? pendingList.firstChild : null);
+        }
+      }
+
       // Insert urgent tasks at the top and non urgent tasks at the bottom.
-      var pendingList = document.querySelector('#pending-list');
+      let pendingList = document.querySelector('#pending-list');
       pendingList.insertBefore(taskItem, taskItem.data.urgent ? pendingList.firstChild : null);
     },
-
   },
 
   ////////////////////////
@@ -42,7 +52,7 @@ myApp.services = {
   ////////////////////////
   fixtures: [
     {
-      title: 'Download OnsenUI',
+      title: 'Ajouter la fonctionnalité pour créer des taches',
       category: 'Programming',
       description: 'Some description.',
       highlight: false,
