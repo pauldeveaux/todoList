@@ -29,6 +29,9 @@ myApp.services = {
       // Store data within the element.
       taskItem.data = data;
 
+      // Highlight
+      if(taskItem.data.highlight) taskItem.classList.add("highlight")
+
 
       // Récupération des elements
       let checkbox = taskItem.children[1].children[0]
