@@ -31,13 +31,23 @@ myApp.services = {
 
       // Checkbox change
       taskItem.onchange = function (){
+        let list;
         if(taskItem.parentNode.id == "pending-list") {
           let inProgressList = document.querySelector('#inProgress-list');
-          inProgressList.insertBefore(taskItem, taskItem.data.urgent ? inProgressList.firstChild : null);
+          taskItem.classList.add("animation-swipe-right");
+          setTimeout(function (){
+            inProgressList.insertBefore(taskItem, taskItem.data.urgent ? inProgressList.firstChild : null);
+            taskItem.classList.remove("animation-swipe-right")
+          }, 950)
         }
         else{
           let pendingList = document.querySelector('#pending-list');
-          pendingList.insertBefore(taskItem, taskItem.data.urgent ? pendingList.firstChild : null);
+          taskItem.classList.add("animation-swipe-left");
+          setTimeout(function (){
+            pendingList.insertBefore(taskItem, taskItem.data.urgent ? pendingList.firstChild : null);
+            taskItem.classList.remove("animation-swipe-left")
+          }, 950)
+
         }
       }
 
