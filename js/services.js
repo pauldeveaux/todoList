@@ -31,24 +31,7 @@ myApp.services = {
 
       // Checkbox change
       taskItem.onchange = function (){
-        let list;
-        if(taskItem.parentNode.id == "pending-list") {
-          let inProgressList = document.querySelector('#inProgress-list');
-          taskItem.classList.add("animation-swipe-right");
-          setTimeout(function (){
-            inProgressList.insertBefore(taskItem, taskItem.data.urgent ? inProgressList.firstChild : null);
-            taskItem.classList.remove("animation-swipe-right")
-          }, 950)
-        }
-        else{
-          let pendingList = document.querySelector('#pending-list');
-          taskItem.classList.add("animation-swipe-left");
-          setTimeout(function (){
-            pendingList.insertBefore(taskItem, taskItem.data.urgent ? pendingList.firstChild : null);
-            taskItem.classList.remove("animation-swipe-left")
-          }, 950)
-
-        }
+        myApp.services.animator.swipeTask(taskItem);
       }
 
       // Insert urgent tasks at the top and non urgent tasks at the bottom.
@@ -117,5 +100,32 @@ myApp.services = {
       highlight: false,
       urgent: false
     }
-  ]
+  ],
+
+
+  /*-------------------ANIMATOR--------------------*/
+
+  animator : {
+    swipeTask : function(taskItem){
+      if(taskItem.parentNode.id === "pending-list") {
+        let inProgressList = document.querySelector('#inProgress-list');
+        taskItem.classList.add("animation-swipe-right");
+        setTimeout(function (){
+          inProgressList.insertBefore(taskItem, taskItem.data.urgent ? inProgressList.firstChild : null);
+          taskItem.classList.remove("animation-swipe-right")
+        }, 950)
+      }
+      else{
+        let pendingList = document.querySelector('#pending-list');
+        taskItem.classList.add("animation-swipe-left");
+        setTimeout(function (){
+          pendingList.insertBefore(taskItem, taskItem.data.urgent ? pendingList.firstChild : null);
+          taskItem.classList.remove("animation-swipe-left")
+        }, 950)
+      }
+    }
+  }
+
 };
+
+
