@@ -11,7 +11,7 @@ myApp.services = {
     // Creates a new task and attaches it to the pending task list.
     create: function (data) {
       // Task item template.
-      var taskItem = ons.createElement(
+      const taskItem = ons.createElement(
         //'<ons-list-item tappable category="' + myApp.services.categories.parseId(data.category)+ '">' +
         '<ons-list-item tappable category="' + data.category + '">' +
         '<label class="left">' +
@@ -34,14 +34,25 @@ myApp.services = {
       let checkbox = taskItem.children[1].children[0]
       let poubelleIcon = taskItem.children[3].children[0];
 
-
+      /* --------------------- Interactions utilisateurs ---------------------- */
       // Checkbox change
       checkbox.onchange = function (){
-        myApp.services.animator.swipeTask(taskItem);
+        let taskList = taskItem.parentNode;
+        let newTaskList;
+        if(taskList.id === "pending-list") newTaskList = document.querySelector('#inProgress-list');
+        else newTaskList = document.querySelector('#pending-list');
+        myApp.services.animator.swipeTask(taskItem, taskList,function (){
+          newTaskList.insertBefore(taskItem, taskItem.data.urgent ? newTaskList.firstChild : null);
+        });
       }
+
+      // Clic sur la poubelle
       poubelleIcon.onclick = function (){
-        console.log("a");
+        myApp.services.animator.deleteTask(taskItem, function (){taskItem.parentNode.removeChild(taskItem);})
       }
+
+
+
 
       // Insert urgent tasks at the top and non urgent tasks at the bottom.
       let pendingList = document.querySelector('#pending-list');
@@ -115,23 +126,20 @@ myApp.services = {
   /*-------------------ANIMATOR--------------------*/
 
   animator : {
-    swipeTask : function(taskItem){
-      if(taskItem.parentNode.id === "pending-list") {
-        let inProgressList = document.querySelector('#inProgress-list');
-        taskItem.classList.add("animation-swipe-right");
-        setTimeout(function (){
-          inProgressList.insertBefore(taskItem, taskItem.data.urgent ? inProgressList.firstChild : null);
-          taskItem.classList.remove("animation-swipe-right")
-        }, 950)
-      }
-      else{
-        let pendingList = document.querySelector('#pending-list');
-        taskItem.classList.add("animation-swipe-left");
-        setTimeout(function (){
-          pendingList.insertBefore(taskItem, taskItem.data.urgent ? pendingList.firstChild : null);
-          taskItem.classList.remove("animation-swipe-left")
-        }, 950)
-      }
+    swipeTask : function(taskItem, list, callback){
+      let animation = (list.id === 'pending-list') ? 'animation-swipe-right' : 'animation-swipe-left';
+      taskItem.classList.add(animation);
+      setTimeout(function (){
+        taskItem.classList.remove(animation);
+        callback();
+      }, 950);
+    },
+
+    deleteTask : function (taskItem, callback){
+      taskItem.classList.add("animation-remove");
+      setTimeout(function (){
+        callback();
+      }, 750)
     }
   }
 
