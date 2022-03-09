@@ -22,8 +22,8 @@ myApp.controllers = {
       element.show && element.show(); // Fix ons-fab in Safari.
     });
   }
-
 };
+
 
 
 
