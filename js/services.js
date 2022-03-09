@@ -29,9 +29,18 @@ myApp.services = {
       // Store data within the element.
       taskItem.data = data;
 
+
+      // Récupération des elements
+      let checkbox = taskItem.children[1].children[0]
+      let poubelleIcon = taskItem.children[3].children[0];
+
+
       // Checkbox change
-      taskItem.onchange = function (){
+      checkbox.onchange = function (){
         myApp.services.animator.swipeTask(taskItem);
+      }
+      poubelleIcon.onclick = function (){
+        console.log("a");
       }
 
       // Insert urgent tasks at the top and non urgent tasks at the bottom.
