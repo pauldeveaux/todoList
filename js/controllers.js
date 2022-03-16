@@ -68,7 +68,8 @@ myApp.controllers = {
             category: categorie,
             description: description,
             highlight: boolSurligner,
-            urgent: boolUrgent
+            urgent: boolUrgent,
+            state: 'enAttente'
           }
           myApp.services.fixtures.push(task);
           myApp.services.tasks.create(task);

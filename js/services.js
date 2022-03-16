@@ -47,20 +47,26 @@ myApp.services = {
         myApp.services.animator.swipeTask(taskItem, taskList,function (){
           newTaskList.insertBefore(taskItem, taskItem.data.urgent ? newTaskList.firstChild : null);
         });
+        myApp.services.save();
       }
 
       // Clic sur la poubelle
       poubelleIcon.onclick = function (){
-        console.log(taskItem)
         myApp.services.animator.deleteTask(taskItem, function (){taskItem.parentNode.removeChild(taskItem);})
+        myApp.services.save();
       }
 
 
-
-
       // Insert urgent tasks at the top and non urgent tasks at the bottom.
-      let pendingList = document.querySelector('#pending-list');
-      pendingList.insertBefore(taskItem, taskItem.data.urgent ? pendingList.firstChild : null);
+      let list;
+      if(data.state === 'enAttente'){
+        list = document.querySelector('#pending-list');
+      }
+      else if(data.state === 'enCours'){
+        list = document.querySelector('#inProgress-list');
+      }
+      list.insertBefore(taskItem, taskItem.data.urgent ? list.firstChild : null);
+      myApp.services.save();
     },
 
     deleteAll : function () {
@@ -68,69 +74,14 @@ myApp.services = {
         myApp.services.animator.deleteTask(taskItem, function (){taskItem.parentNode.removeChild(taskItem);})
       })
       myApp.services.fixtures = []
-    }
+    },
   },
 
   ////////////////////////
   // Initial Data Service //
   ////////////////////////
   fixtures: [
-    {
-      title: 'Ajouter la fonctionnalité pour créer des taches',
-      category: 'Programming',
-      description: 'Some description.',
-      highlight: false,
-      urgent: false
-    },
-    {
-      title: 'Install Monaca CLI',
-      category: 'Programming',
-      description: 'Some description.',
-      highlight: false,
-      urgent: false
-    },
-    {
-      title: 'Star Onsen UI repo on Github',
-      category: 'Super important',
-      description: 'Some description.',
-      highlight: false,
-      urgent: false
-    },
-    {
-      title: 'Register in the community forum',
-      category: 'Super important',
-      description: 'Some description.',
-      highlight: false,
-      urgent: false
-    },
-    {
-      title: 'Send donations to Fran and Andreas',
-      category: 'Super important',
-      description: 'Some description.',
-      highlight: false,
-      urgent: false
-    },
-    {
-      title: 'Profit',
-      category: '',
-      description: 'Some description.',
-      highlight: false,
-      urgent: false
-    },
-    {
-      title: 'Visit Japan',
-      category: 'Travels',
-      description: 'Some description.',
-      highlight: false,
-      urgent: false
-    },
-    {
-      title: 'Enjoy an Onsen with Onsen UI team',
-      category: 'Personal',
-      description: 'Some description.',
-      highlight: false,
-      urgent: false
-    }
+
   ],
 
 
@@ -152,8 +103,22 @@ myApp.services = {
         callback();
       }, 750)
     }
+  },
+
+  save : function () {
+    let storageData = JSON.stringify(myApp.services.fixtures)
+    localStorage.setItem("tasks", storageData)
+  },
+
+  load : function () {
+    let data = JSON.parse(localStorage.getItem("tasks"))
+    console.log(data)
+    data.forEach(task => myApp.services.tasks.create(task))
   }
 
 };
+
+
+
 
 
