@@ -40,7 +40,11 @@ myApp.services = {
       // console.log(detailLigne)
       // console.log(poubelleIcon);
       detailLigne.addEventListener("click", function(){
-        console.log(detailLigne);
+        // document.querySelector('#myNavigator').pushPage('html/details_task.html');
+        let index = 0
+        let titre = myApp.services.fixtures[index]
+        console.log(titre);
+
       })
 
       /* --------------------- Interactions utilisateurs ---------------------- */
