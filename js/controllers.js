@@ -68,10 +68,22 @@ myApp.controllers = {
 
       };
     });
+  },
+
+  detailTaskPage : function(page){
+    console.log(myApp.services.tasks.create().detailLigne)
+
+    Array.prototype.forEach.call(page.querySelectorAll('[component="button/save-task"]'), function(element){
+      element.onclick = function() {
+       
+
+      };
+    });
   }
 };
 
 
+console.log(myApp.services)
 
 
 

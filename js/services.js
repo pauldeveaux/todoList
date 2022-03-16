@@ -36,6 +36,9 @@ myApp.services = {
       // Récupération des elements
       let checkbox = taskItem.children[1].children[0]
       let poubelleIcon = taskItem.children[3].children[0];
+      var detailLigne = taskItem.children[2];
+      console.log(abcde)
+      
 
       /* --------------------- Interactions utilisateurs ---------------------- */
       // Checkbox change
@@ -147,5 +150,6 @@ myApp.services = {
   }
 
 };
+
 
 
