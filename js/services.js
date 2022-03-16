@@ -51,6 +51,7 @@ myApp.services = {
 
       // Clic sur la poubelle
       poubelleIcon.onclick = function (){
+        console.log(taskItem)
         myApp.services.animator.deleteTask(taskItem, function (){taskItem.parentNode.removeChild(taskItem);})
       }
 
@@ -61,6 +62,13 @@ myApp.services = {
       let pendingList = document.querySelector('#pending-list');
       pendingList.insertBefore(taskItem, taskItem.data.urgent ? pendingList.firstChild : null);
     },
+
+    deleteAll : function () {
+      document.querySelectorAll("ons-list-item").forEach(taskItem => {
+        myApp.services.animator.deleteTask(taskItem, function (){taskItem.parentNode.removeChild(taskItem);})
+      })
+      myApp.services.fixtures = []
+    }
   },
 
   ////////////////////////

@@ -58,9 +58,17 @@
 
             <!-- Floating Action Button only visible for Android. -->
             <ons-if platform="android">
-                <ons-fab position="right bottom" component="button/new-task">
-                    <ons-icon icon="md-edit"></ons-icon>
-                </ons-fab>
+                <ons-speed-dial position="bottom right" direction="up">
+                    <ons-fab position="right bottom">
+                        <ons-icon icon="md-edit"></ons-icon>
+                    </ons-fab>
+                    <ons-speed-dial-item component="button/new-task">
+                        <ons-icon icon="md-plus"></ons-icon>
+                    </ons-speed-dial-item>
+                    <ons-speed-dial-item component="button/delete-tasks">
+                        <ons-icon icon="md-delete"></ons-icon>
+                    </ons-speed-dial-item>
+                </ons-speed-dial>
             </ons-if>
 
             <!-- Auto-positioned Tabbar: top on Android, bottom on iOS/other. -->
