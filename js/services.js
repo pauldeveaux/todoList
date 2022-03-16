@@ -58,6 +58,7 @@ myApp.services = {
 
       // Clic sur la poubelle
       poubelleIcon.onclick = function (){
+        myApp.services.fixtures.splice(myApp.services.fixtures.indexOf(taskItem.data),1)
         myApp.services.animator.deleteTask(taskItem, function (){taskItem.parentNode.removeChild(taskItem);})
         myApp.services.save();
       }
@@ -86,9 +87,7 @@ myApp.services = {
   ////////////////////////
   // Initial Data Service //
   ////////////////////////
-  fixtures: [
-
-  ],
+  fixtures: [],
 
 
   /*-------------------ANIMATOR--------------------*/
@@ -117,9 +116,8 @@ myApp.services = {
   },
 
   load : function () {
-    let data = JSON.parse(localStorage.getItem("tasks"))
-    console.log(data)
-    data.forEach(task => myApp.services.tasks.create(task))
+    this.fixtures = JSON.parse(localStorage.getItem("tasks"))
+    this.fixtures.forEach(task => myApp.services.tasks.create(task))
   }
 
 };
