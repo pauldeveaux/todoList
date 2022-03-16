@@ -21,17 +21,26 @@ myApp.controllers = {
 
       element.show && element.show(); // Fix ons-fab in Safari.
     });
+
+    // Set button functionality to delete all tasks
+    Array.prototype.forEach.call(page.querySelectorAll('[component="button/delete-tasks"]'), function(element) {
+      element.onclick = function() {
+        myApp.services.tasks.deleteAll();
+      };
+      element.show && element.show(); // Fix ons-fab in Safari.
+    });
+
   },
 
   newTaskPage: function(page){
     Array.prototype.forEach.call(page.querySelectorAll('[component="button/save-task"]'), function(element){
       element.onclick = function() {
-        
+
 
         var jeveux = document.getElementById('jeveux').value;
         var categorie = document.getElementById('categorie').value;
         var description = document.getElementById('description').value;
-        
+
         if(jeveux==="" || categorie ==="" || description === ""){
           ons.notification.toast('Complétez le formualire merci !', {
             timeout: 2000
@@ -43,17 +52,17 @@ myApp.controllers = {
           if(surligner.checked){
             boolSurligner = true;
           }
-        
+
           var urgent = document.getElementById('switch2');
           let boolUrgent = false;
           if(urgent.checked){
             boolUrgent = true;
           }
-        
+
           ons.notification.toast('Enregistré!', {
             timeout: 2000
           });
-        
+
           let task = {
             title: jeveux,
             category: categorie,

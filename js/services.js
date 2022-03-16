@@ -37,8 +37,11 @@ myApp.services = {
       let checkbox = taskItem.children[1].children[0]
       let poubelleIcon = taskItem.children[3].children[0];
       var detailLigne = taskItem.children[2];
-      console.log(abcde)
-      
+      // console.log(detailLigne)
+      // console.log(poubelleIcon);
+      detailLigne.addEventListener("click", function(){
+        console.log(detailLigne);
+      })
 
       /* --------------------- Interactions utilisateurs ---------------------- */
       // Checkbox change
@@ -54,6 +57,7 @@ myApp.services = {
 
       // Clic sur la poubelle
       poubelleIcon.onclick = function (){
+        console.log(taskItem)
         myApp.services.animator.deleteTask(taskItem, function (){taskItem.parentNode.removeChild(taskItem);})
       }
 
@@ -64,6 +68,13 @@ myApp.services = {
       let pendingList = document.querySelector('#pending-list');
       pendingList.insertBefore(taskItem, taskItem.data.urgent ? pendingList.firstChild : null);
     },
+
+    deleteAll : function () {
+      document.querySelectorAll("ons-list-item").forEach(taskItem => {
+        myApp.services.animator.deleteTask(taskItem, function (){taskItem.parentNode.removeChild(taskItem);})
+      })
+      myApp.services.fixtures = []
+    }
   },
 
   ////////////////////////

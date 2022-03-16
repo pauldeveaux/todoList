@@ -366,7 +366,7 @@ h4, h5, h6 {
 }
 :checked + .switch--material__toggle > .switch--material__handle {
   left: 16px;
-  background-color: #009688;
+  background-color: #ff6552;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14),
       0 1px 5px 0 rgba(0, 0, 0, .12),
       0 3px 1px -2px rgba(0, 0, 0, .2);
@@ -392,7 +392,7 @@ h4, h5, h6 {
   box-shadow: 0 0 0 14px rgba(0, 0, 0, .12);
 }
 :checked + .switch--material__toggle > .switch--active__handle:before {
-  box-shadow: 0 0 0 14px alpha(#009688, 0.2);
+  box-shadow: 0 0 0 14px alpha(#ff6552, 0.2);
 }
 .switch--material__touch {
   position: absolute;
@@ -576,8 +576,8 @@ h4, h5, h6 {
   background-image: linear-gradient(#bdbdbd, #bdbdbd);
 }
 .range--material__input {
-  background-image: -webkit-linear-gradient(#009688, #009688);
-  background-image: linear-gradient(#009688, #009688);
+  background-image: -webkit-linear-gradient(#ff6552, #ff6552);
+  background-image: linear-gradient(#ff6552, #ff6552);
   background-position: center left;
   background-size: 0% 2px;
 }
@@ -590,8 +590,8 @@ h4, h5, h6 {
   width: 14px;
   height: 14px;
   border: none;
-  box-shadow: 0 0 0 9px #009688;
-  background-color: #009688;
+  box-shadow: 0 0 0 9px #ff6552;
+  background-color: #ff6552;
   border-radius: 50%;
   opacity: 0;
   -webkit-transition: opacity 0.25s ease-out, -webkit-transform 0.25s ease-out;
@@ -613,8 +613,8 @@ h4, h5, h6 {
   height: 32px;
   border-radius: 0;
   box-shadow: none;
-  background-image: -webkit-radial-gradient(circle cover, #009688 0%, #009688 6.6px, transparent 7px);
-  background-image: radial-gradient(circle cover, #009688 0%, #009688 6.6px, transparent 7px);
+  background-image: -webkit-radial-gradient(circle cover, #ff6552 0%, #ff6552 6.6px, transparent 7px);
+  background-image: radial-gradient(circle cover, #ff6552 0%, #ff6552 6.6px, transparent 7px);
   -webkit-transition: -webkit-transform 0.1s linear;
   transition: -webkit-transform 0.1s linear;
   transition: transform 0.1s linear;
@@ -639,7 +639,7 @@ h4, h5, h6 {
   height: 32px;
   border-radius: 0;
   background-color: transparent;
-  background-image: -moz-radial-gradient(circle cover, #009688 0%, #009688 6.6px, transparent 7px); /* stylelint-disable-line */
+  background-image: -moz-radial-gradient(circle cover, #ff6552 0%, #ff6552 6.6px, transparent 7px); /* stylelint-disable-line */
   box-shadow: none;
 }
 .range--material__input:active::-webkit-slider-thumb,
@@ -1034,7 +1034,7 @@ h4, h5, h6 {
   border-bottom: 0;
   box-shadow: 0 1px 5px rgba(0, 0, 0, .3);
   padding: 0;
-  background-color: #009688;
+  background-color: #ff6552;
   background-size: 0;
 }
 /*~
@@ -1647,7 +1647,7 @@ h4, h5, h6 {
   -webkit-transform: translate3d(0, 0, 0);
           transform: translate3d(0, 0, 0);
   text-transform: uppercase;
-  background-color: #009688;
+  background-color: #ff6552;
   color: #ffffff;
   font-weight: 500;
   -webkit-transition: background-color 0.25s linear;
@@ -1664,7 +1664,7 @@ h4, h5, h6 {
   box-shadow: 0 6px 10px 0 rgba(0, 0, 0, .14),
       0 1px 18px 0 rgba(0, 0, 0, .12),
       0 3px 5px -1px rgba(0, 0, 0, .4);
-  background-color: #009688;
+  background-color: #ff6552;
   opacity: 0.9;
   -webkit-transition: all 0.25s linear;
   transition: all 0.25s linear;
@@ -1740,14 +1740,14 @@ h4, h5, h6 {
   -webkit-transform: translate3d(0, 0, 0);
           transform: translate3d(0, 0, 0);
   text-transform: uppercase;
-  background-color: #009688;
+  background-color: #ff6552;
   color: #ffffff;
   font-weight: 500;
   -webkit-transition: background-color 0.25s linear;
   transition: background-color 0.25s linear;
   box-shadow: none;
   background-color: transparent;
-  color: #009688;
+  color: #ff6552;
   -webkit-transition: all 0.25s linear;
   transition: all 0.25s linear;
 }
@@ -1758,7 +1758,7 @@ h4, h5, h6 {
 .button--material--flat:focus { /* stylelint-disable-line */
   box-shadow: none;
   background-color: transparent;
-  color: #009688;
+  color: #ff6552;
   outline: 0;
   opacity: 1;
   border: none;
@@ -1769,7 +1769,7 @@ h4, h5, h6 {
   opacity: 1;
   border: none;
   background-color: rgba(153, 153, 153, .2);
-  color: #009688;
+  color: #ff6552;
   -webkit-transition: all 0.25s linear;
   transition: all 0.25s linear;
 }
@@ -2457,7 +2457,7 @@ h4, h5, h6 {
 }
 .tabbar--material {
   background: none;
-  background-color: #009688;
+  background-color: #ff6552;
   border-bottom-width: 0;
   box-shadow:
     0 4px 2px -2px rgba(0, 0, 0, .14),
@@ -3017,8 +3017,8 @@ h4, h5, h6 {
   background-color: transparent;
 }
 :checked + .checkbox--material__checkmark:before {
-  border: 2px solid #009688;
-  background-color: #009688;
+  border: 2px solid #ff6552;
+  background-color: #ff6552;
   -webkit-transition: background-color 0.1s linear, border-color 0.1s linear;
   transition: background-color 0.1s linear, border-color 0.1s linear;
 }
@@ -3072,8 +3072,8 @@ h4, h5, h6 {
   transition: opacity 0.25s ease-out, transform 0.1s ease-out, -webkit-transform 0.1s ease-out;
 }
 .checkbox--material__input:checked:before {
-  box-shadow: 0 0 0 11px #009688;
-  background-color: #009688;
+  box-shadow: 0 0 0 11px #ff6552;
+  background-color: #ff6552;
 }
 .checkbox--material__input:active:before {
   opacity: .15;
@@ -3273,8 +3273,8 @@ h4, h5, h6 {
   transition: opacity 0.25s ease-out, transform 0.1s ease-out, -webkit-transform 0.1s ease-out;
 }
 .radio-button--material__input:checked:before {
-  box-shadow: 0 0 0 14px #009688;
-  background-color: #009688;
+  box-shadow: 0 0 0 14px #ff6552;
+  background-color: #ff6552;
 }
 .radio-button--material__input:active:before {
   opacity: .15;
@@ -3312,7 +3312,7 @@ h4, h5, h6 {
 }
 :checked + .radio-button--material__checkmark:before {
   background: transparent;
-  border: 2px solid #009688;
+  border: 2px solid #ff6552;
 }
 .radio-button--material__input + .radio-button__checkmark:after {
   background: #717171;
@@ -3322,7 +3322,7 @@ h4, h5, h6 {
 }
 :checked + .radio-button--material__checkmark:after {
   opacity: 1;
-  background: #009688;
+  background: #ff6552;
   -webkit-transform: scale(1);
           transform: scale(1);
 }
@@ -4636,7 +4636,7 @@ h4, h5, h6 {
   pointer-events: none;
 }
 .text-input--material__label--active {
-  color: #009688;
+  color: #ff6552;
   -webkit-transform: translate(0, -75%) scale(0.75);
           transform: translate(0, -75%) scale(0.75);
   -webkit-transform-origin: left top;
@@ -4647,9 +4647,9 @@ h4, h5, h6 {
   transition: transform 0.1s ease-in, color 0.1s ease-in, -webkit-transform 0.1s ease-in;
 }
 .text-input--material:focus {
-  background-image: -webkit-linear-gradient(#009688, #009688),
+  background-image: -webkit-linear-gradient(#ff6552, #ff6552),
     -webkit-linear-gradient(bottom, transparent 1px, #afafaf 1px);
-  background-image: linear-gradient(#009688, #009688),
+  background-image: linear-gradient(#ff6552, #ff6552),
     linear-gradient(to top, transparent 1px, #afafaf 1px);
   -webkit-animation: material-text-input-animate 0.3s forwards;
           animation: material-text-input-animate 0.3s forwards;
@@ -5236,7 +5236,7 @@ h4, h5, h6 {
   margin: 8px 8px 8px 0;
   box-sizing: border-box;
   min-width: 50px;
-  color: #009688
+  color: #ff6552
 }
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
   .alert-dialog-button--material {
@@ -5612,7 +5612,7 @@ h4, h5, h6 {
 }
 .progress-bar--material__primary,
 .progress-bar--material__secondary {
-  background-color: #009688;
+  background-color: #ff6552;
   border-radius: 0;
 }
 .progress-bar--material__secondary {
@@ -5620,11 +5620,11 @@ h4, h5, h6 {
   z-index: 0;
 }
 .progress-bar--material.progress-bar--indeterminate:before { /* FIXME */
-  background-color: #009688;
+  background-color: #ff6552;
   border-radius: 0;
 }
 .progress-bar--material.progress-bar--indeterminate:after { /* FIXME */
-  background-color: #009688;
+  background-color: #ff6552;
   border-radius: 0;
 }
 /*~
@@ -5771,7 +5771,7 @@ h4, h5, h6 {
   stroke: #dbdbdb;
 }
 .progress-circular--material__primary {
-  stroke: #009688;
+  stroke: #ff6552;
 }
 .progress-circular--material__secondary {
   stroke: #80cbc4;
@@ -5905,7 +5905,7 @@ h4, h5, h6 {
   font-size: 25px;
   line-height: 56px;
   color: #ffffff;
-  background-color: #009688;
+  background-color: #ff6552;
   box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .14),
       0 1px 10px 0 rgba(0, 0, 0, .12),
       0 2px 4px -1px rgba(0, 0, 0, .4);
