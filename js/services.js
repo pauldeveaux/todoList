@@ -41,8 +41,8 @@ myApp.services = {
       // console.log(poubelleIcon);
       detailLigne.addEventListener("click", function(){
         // document.querySelector('#myNavigator').pushPage('html/details_task.html');
-        let index = 1
-        let titre = myApp.services.fixtures[index].title
+        let index = 0
+        let titre = myApp.services.fixtures[index]
         console.log(titre);
 
       })
@@ -120,10 +120,10 @@ myApp.services = {
     localStorage.setItem("tasks", storageData)
   },
 
-  load : function () {
-    let data = JSON.parse(localStorage.getItem("tasks"))
-    console.log(data)
-    data.forEach(task => myApp.services.tasks.create(task))
-  }
+  // load : function () { enes
+  //   let data = JSON.parse(localStorage.getItem("tasks"))
+  //   console.log(data)
+  //   data.forEach(task => myApp.services.tasks.create(task))
+  // }
 
 };
