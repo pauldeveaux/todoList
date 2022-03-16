@@ -41,8 +41,7 @@ myApp.services = {
       // console.log(poubelleIcon);
       detailLigne.addEventListener("click", function(){
         // document.querySelector('#myNavigator').pushPage('html/details_task.html');
-        let index = 0
-        let titre = myApp.services.fixtures[index]
+        let titre = myApp.services.fixtures[myApp.services.fixtures.indexOf(taskItem.data)]['title']
         console.log(titre);
 
       })
@@ -122,6 +121,7 @@ myApp.services = {
   load : function () {
     this.fixtures = JSON.parse(localStorage.getItem("tasks"))
     this.fixtures.forEach(task => myApp.services.tasks.create(task))
+    console.log(this.fixtures )
   }
 
 };
