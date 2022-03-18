@@ -51,8 +51,14 @@ myApp.services = {
       checkbox.onchange = function (){
         let taskList = taskItem.parentNode;
         let newTaskList;
-        if(taskList.id === "pending-list") newTaskList = document.querySelector('#inProgress-list');
-        else newTaskList = document.querySelector('#pending-list');
+        if(taskList.id === "pending-list") {
+          newTaskList = document.querySelector('#inProgress-list');
+          taskItem.data['state'] = 'enCours'
+        }
+        else  {
+          newTaskList = document.querySelector('#pending-list')
+          taskItem.data['state'] = 'enAttente'
+        };
         myApp.services.animator.swipeTask(taskItem, taskList,function (){
           newTaskList.insertBefore(taskItem, taskItem.data.urgent ? newTaskList.firstChild : null);
         });
@@ -119,9 +125,10 @@ myApp.services = {
   },
 
   load : function () {
-    this.fixtures = JSON.parse(localStorage.getItem("tasks"))
+    let temp = JSON.parse(localStorage.getItem("tasks"))
+    if(temp == null) this.fixtures = []
+    else this.fixtures = temp
     this.fixtures.forEach(task => myApp.services.tasks.create(task))
-    console.log(this.fixtures )
   }
 
 };
