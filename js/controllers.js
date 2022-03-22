@@ -92,11 +92,3 @@ myApp.controllers = {
   }
 };
 
-
-console.log(myApp.services)
-
-
-
-
-
-/**formulaire */

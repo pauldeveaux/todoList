@@ -37,13 +37,9 @@ myApp.services = {
       let checkbox = taskItem.children[1].children[0]
       let poubelleIcon = taskItem.children[3].children[0];
       var detailLigne = taskItem.children[2];
-      // console.log(detailLigne)
-      // console.log(poubelleIcon);
       detailLigne.addEventListener("click", function(){
         // document.querySelector('#myNavigator').pushPage('html/details_task.html');
         let titre = myApp.services.fixtures[myApp.services.fixtures.indexOf(taskItem.data)]['title']
-        console.log(titre);
-
       })
 
       /* --------------------- Interactions utilisateurs ---------------------- */
@@ -78,8 +74,12 @@ myApp.services = {
       if(data.state === 'enAttente'){
         list = document.querySelector('#pending-list');
       }
-      else if(data.state === 'enCours'){
+      else if(data.state==='enCours'){
+        checkbox.checked = true;
         list = document.querySelector('#inProgress-list');
+      }
+      else{
+        console.log('erreur');
       }
       list.insertBefore(taskItem, taskItem.data.urgent ? list.firstChild : null);
       myApp.services.save();
