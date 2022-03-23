@@ -41,8 +41,9 @@ myApp.controllers = {
         var categorie = document.getElementById('categorie').value;
         var description = document.getElementById('description').value;
 
-        if(jeveux==="" || categorie ==="" || description === ""){
-          ons.notification.toast('Complétez le formualire merci !', {
+
+        if(jeveux==="" || categorie ===""){
+          ons.notification.toast('Veuillez compléter le formulaire', {
             timeout: 2000
           });
         }
@@ -85,8 +86,6 @@ myApp.controllers = {
 
     Array.prototype.forEach.call(page.querySelectorAll('[component="button/save-task"]'), function(element){
       element.onclick = function() {
-       
-
       };
     });
   }

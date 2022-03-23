@@ -119,6 +119,8 @@ myApp.services = {
     }
   },
 
+  // Question P1
+
   save : function () {
     let storageData = JSON.stringify(myApp.services.fixtures)
     localStorage.setItem("tasks", storageData)
