@@ -103,7 +103,7 @@ myApp.controllers = {
           document.querySelector('#myNavigator').popPage();
 
         }else{
-          ons.notification.alert('You must provide a task title.');
+          ons.notification.alert('Annuler');
         }
       })
     }

@@ -90,6 +90,8 @@ myApp.services = {
         taskItem.querySelector('.center').innerHTML = data.title;
       }
       taskItem.data = data;
+      myApp.services.save();
+
     },
 
 
