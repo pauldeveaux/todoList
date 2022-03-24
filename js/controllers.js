@@ -41,9 +41,8 @@ myApp.controllers = {
         var categorie = document.getElementById('categorie').value;
         var description = document.getElementById('description').value;
 
-
-        if(jeveux==="" || categorie ===""){
-          ons.notification.toast('Veuillez compléter le formulaire', {
+        if(jeveux==="" || categorie ==="" || description === ""){
+          ons.notification.toast('Complétez le formualire merci !', {
             timeout: 2000
           });
         }
@@ -81,13 +80,43 @@ myApp.controllers = {
     });
   },
 
-  detailTaskPage : function(page){
-    console.log(myApp.services.tasks.create().detailLigne)
+  detailsTaskPage : function(page){
 
-    Array.prototype.forEach.call(page.querySelectorAll('[component="button/save-task"]'), function(element){
-      element.onclick = function() {
-      };
-    });
+    var element = page.data.element;
+
+    // Fill the view with the stored data.
+    page.querySelector('#jeveux').value = element.data.title;
+    page.querySelector('#categorie').value = element.data.category;
+    page.querySelector('#description').value = element.data.description;
+
+    page.querySelector('[component="button/save-task"]').onclick = function(){
+      ons.notification.confirm('Faire le changement ?').then(function(ok){
+        if(ok===1){
+          myApp.services.tasks.update(element,
+            {
+              title: page.querySelector('#jeveux').value,
+              category: page.querySelector('#categorie').value,
+              description: page.querySelector('#description').value,
+
+            }
+          );
+          document.querySelector('#myNavigator').popPage();
+
+        }else{
+          ons.notification.alert('You must provide a task title.');
+        }
+      })
+    }
+
+
   }
 };
 
+
+console.log(myApp.services)
+
+
+
+
+
+/**formulaire */

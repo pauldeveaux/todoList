@@ -11,8 +11,8 @@ myApp.services = {
     // Creates a new task and attaches it to the pending task list.
     create: function (data) {
       // Task item template.
-      const taskItem = ons.createElement(
-        //'<ons-list-item tappable category="' + myApp.services.categories.parseId(data.category)+ '">' +
+      var taskItem = ons.createElement(
+        // '<ons-list-item tappable category="' + myApp.services.categories.parseId(data.category)+ '">' +
         '<ons-list-item tappable category="' + data.category + '">' +
         '<label class="left">' +
         '<ons-checkbox></ons-checkbox>' +
@@ -36,25 +36,16 @@ myApp.services = {
       // Récupération des elements
       let checkbox = taskItem.children[1].children[0]
       let poubelleIcon = taskItem.children[3].children[0];
-      var detailLigne = taskItem.children[2];
-      detailLigne.addEventListener("click", function(){
-        // document.querySelector('#myNavigator').pushPage('html/details_task.html');
-        let titre = myApp.services.fixtures[myApp.services.fixtures.indexOf(taskItem.data)]['title']
-      })
+
+
 
       /* --------------------- Interactions utilisateurs ---------------------- */
       // Checkbox change
       checkbox.onchange = function (){
         let taskList = taskItem.parentNode;
         let newTaskList;
-        if(taskList.id === "pending-list") {
-          newTaskList = document.querySelector('#inProgress-list');
-          taskItem.data['state'] = 'enCours'
-        }
-        else  {
-          newTaskList = document.querySelector('#pending-list')
-          taskItem.data['state'] = 'enAttente'
-        };
+        if(taskList.id === "pending-list") newTaskList = document.querySelector('#inProgress-list');
+        else newTaskList = document.querySelector('#pending-list');
         myApp.services.animator.swipeTask(taskItem, taskList,function (){
           newTaskList.insertBefore(taskItem, taskItem.data.urgent ? newTaskList.firstChild : null);
         });
@@ -74,16 +65,33 @@ myApp.services = {
       if(data.state === 'enAttente'){
         list = document.querySelector('#pending-list');
       }
-      else if(data.state==='enCours'){
-        checkbox.checked = true;
+      else if(data.state === 'enCours'){
         list = document.querySelector('#inProgress-list');
       }
-      else{
-        console.log('erreur');
-      }
       list.insertBefore(taskItem, taskItem.data.urgent ? list.firstChild : null);
+      
+      taskItem.querySelector('.center').onclick = function(){
+        document.querySelector('#myNavigator').pushPage('html/details_task.html',
+        {
+          data : {
+            element: taskItem
+          }
+        }
+        
+        );
+      };
+      
       myApp.services.save();
     },
+
+
+    update: function(taskItem, data) {
+      if (data.title !== taskItem.data.title) {
+        taskItem.querySelector('.center').innerHTML = data.title;
+      }
+      taskItem.data = data;
+    },
+
 
     deleteAll : function () {
       document.querySelectorAll("ons-list-item").forEach(taskItem => {
@@ -119,18 +127,18 @@ myApp.services = {
     }
   },
 
-  // Question P1
-
   save : function () {
     let storageData = JSON.stringify(myApp.services.fixtures)
     localStorage.setItem("tasks", storageData)
   },
 
   load : function () {
-    let temp = JSON.parse(localStorage.getItem("tasks"))
-    if(temp == null) this.fixtures = []
-    else this.fixtures = temp
+    this.fixtures = JSON.parse(localStorage.getItem("tasks"))
     this.fixtures.forEach(task => myApp.services.tasks.create(task))
+    console.log(this.fixtures )
   }
 
 };
+
+
+// console.log(document.getElementById("detailsDescription"));
