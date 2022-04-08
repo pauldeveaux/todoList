@@ -83,8 +83,8 @@ myApp.services = {
       // Clic sur la poubelle
       poubelleIcon.onclick = function (){
         myApp.services.fixtures.splice(myApp.services.fixtures.indexOf(taskItem.data),1)
-        myApp.services.animator.deleteTask(taskItem, function (){taskItem.parentNode.removeChild(taskItem);})
-        myApp.services.categories.updateRemove(taskItem.data.category);
+        myApp.services.animator.deleteTask(taskItem, function (){taskItem.parentNode.removeChild(taskItem);
+          myApp.services.categories.updateRemove(taskItem.data.category);})
         myApp.services.save();
       }
 
@@ -173,7 +173,6 @@ myApp.services = {
       var categoryItem = document.querySelector('#tabbarPage ons-list-item[category="' + categoryId + '"]');
 
       if (!categoryItem) {
-        // If there are no tasks under this category, remove it.
         myApp.services.categories.remove(document.querySelector('#custom-category-list ons-list-item[category-id="' + categoryId + '"]'));
       }
     },
@@ -206,12 +205,10 @@ myApp.services = {
 
     // Transforms a category name into a valid id.
     parseId: function(categoryLabel) {
-      return categoryLabel ? categoryLabel.replace(/\s\s+/g, ' ').toLowerCase() : '';
+      return categoryLabel ? categoryLabel.replace(/\s\s+/g, ' ') : '';
     },
   },
-  ////////////////////////
-  // Initial Data Service //
-  ////////////////////////
+
   fixtures: [],
 
 
