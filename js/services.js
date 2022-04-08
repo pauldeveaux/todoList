@@ -84,6 +84,7 @@ myApp.services = {
       poubelleIcon.onclick = function (){
         myApp.services.fixtures.splice(myApp.services.fixtures.indexOf(taskItem.data),1)
         myApp.services.animator.deleteTask(taskItem, function (){taskItem.parentNode.removeChild(taskItem);})
+        myApp.services.categories.updateRemove(taskItem.data.category);
         myApp.services.save();
       }
 
@@ -102,7 +103,8 @@ myApp.services = {
       }
       list.insertBefore(taskItem, taskItem.data.urgent ? list.firstChild : null);
 
-      
+
+      myApp.services.categories.updateAdd(taskItem.data.category);
       taskItem.querySelector('.center').onclick = function(){
         document.querySelector('#myNavigator').pushPage('html/details_task.html',
         {
@@ -117,34 +119,10 @@ myApp.services = {
       myApp.services.save();
     },
 
-
-
-    update: function(taskItem, data) {
-      if (data.title !== taskItem.data.title) {
-        // Update title view.
-        taskItem.querySelector('.center').innerHTML = data.title;
-      }
-      if (data.category !== taskItem.data.category) {
-        // Modify the item before updating categories.
-        taskItem.setAttribute('category', myApp.services.categories.parseId(data.category));
-        // Check if it's necessary to create new categories.
-        myApp.services.categories.updateAdd(data.category);
-        // Check if it's necessary to remove empty categories.
-        myApp.services.categories.updateRemove(taskItem.data.category);
-
-      }
-      // Add or remove the highlight.
-      taskItem.classList[data.highlight ? 'add' : 'remove']('highlight');
-      // Store the new data within the element.
-      taskItem.data = data;
-
-      myApp.services.save();
-    },
-
-
     deleteAll : function () {
       document.querySelectorAll("ons-list-item").forEach(taskItem => {
         myApp.services.animator.deleteTask(taskItem, function (){taskItem.parentNode.removeChild(taskItem);})
+        myApp.services.categories.updateRemove(taskItem.data.category);
       })
       myApp.services.fixtures = []
       localStorage.clear();
@@ -178,7 +156,7 @@ myApp.services = {
       // Attach the new category to the corresponding list.
       document.querySelector('#custom-category-list').appendChild(categoryItem);
     },
-    
+
         // On task creation/update, updates the category list adding new categories if needed.
     updateAdd: function(categoryLabel) {
       var categoryId = myApp.services.categories.parseId(categoryLabel);
