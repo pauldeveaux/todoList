@@ -15,7 +15,7 @@ myApp.services = {
         // '<ons-list-item tappable category="' + myApp.services.categories.parseId(data.category)+ '">' +
         '<ons-list-item tappable category="' + data.category + '">' +
         '<label class="left">' +
-        '<ons-checkbox></ons-checkbox>' +
+        '<ons-checkbox class="checkbox"/>' +
         '</label>' +
         '<div class="center">' +
         data.title +
@@ -29,6 +29,8 @@ myApp.services = {
 
       // Store data within the element.
       taskItem.data = data;
+
+
 
       // dates             S1
       if(!(isNaN(data.dateLimite[0]) || isNaN(data.dateLimite[1]) || isNaN(data.dateLimite[2]))){
@@ -47,6 +49,16 @@ myApp.services = {
       let checkbox = taskItem.children[1].children[0]
       let poubelleIcon = taskItem.children[3].children[1];
 
+      if(taskItem.data.state === 'enCours'){
+        checkbox.checked = true;
+      }
+      else if(taskItem.data.state === 'enAttente'){
+        checkbox.checked = false;
+      }
+      else{
+        checkbox.style.display = "none";
+      }
+
 
 
       /* --------------------- Interactions utilisateurs ---------------------- */
@@ -54,8 +66,14 @@ myApp.services = {
       checkbox.onchange = function (){
         let taskList = taskItem.parentNode;
         let newTaskList;
-        if(taskList.id === "pending-list") newTaskList = document.querySelector('#inProgress-list');
-        else newTaskList = document.querySelector('#pending-list');
+        if(taskList.id === "pending-list"){
+          newTaskList = document.querySelector('#inProgress-list');
+          taskItem.data.state = 'enCours'
+        }
+        else{
+          newTaskList = document.querySelector('#pending-list');
+          taskItem.data.state = 'enAttente'
+        }
         myApp.services.animator.swipeTask(taskItem, taskList,function (){
           newTaskList.insertBefore(taskItem, taskItem.data.urgent ? newTaskList.firstChild : null);
         });
@@ -72,13 +90,18 @@ myApp.services = {
 
       // Insert urgent tasks at the top and non urgent tasks at the bottom.
       let list;
+      console.log(data.state)
       if(data.state === 'enAttente'){
         list = document.querySelector('#pending-list');
       }
       else if(data.state === 'enCours'){
         list = document.querySelector('#inProgress-list');
       }
+      else{
+        list = document.querySelector('#completed-list');
+      }
       list.insertBefore(taskItem, taskItem.data.urgent ? list.firstChild : null);
+
       
       taskItem.querySelector('.center').onclick = function(){
         document.querySelector('#myNavigator').pushPage('html/details_task.html',
@@ -100,8 +123,8 @@ myApp.services = {
         taskItem.querySelector('.center').innerHTML = data.title;
       }
       taskItem.data = data;
+      console.log(taskItem.data)
       myApp.services.save();
-
     },
 
 
@@ -147,7 +170,8 @@ myApp.services = {
 
   load : function () {
     this.fixtures = JSON.parse(localStorage.getItem("tasks"))
-    this.fixtures.forEach(task => myApp.services.tasks.create(task))
+    if(this.fixtures!=null) this.fixtures.forEach(task => myApp.services.tasks.create(task))
+    else this.fixtures = []
 
   }
 

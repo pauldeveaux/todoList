@@ -98,29 +98,39 @@ myApp.controllers = {
   detailsTaskPage : function(page){
 
     var element = page.data.element;
-
     // Fill the view with the stored data.
     page.querySelector('#jeveux').value = element.data.title;
     page.querySelector('#categorie').value = element.data.category;
     page.querySelector('#description').value = element.data.description;
+    page.querySelector('#switchFini').checked = (element.parentNode.id === "completed-list")
 
     page.querySelector('[component="button/save-task"]').onclick = function(){
       ons.notification.confirm('Confirmer les modifications').then(function(ok){
         if(ok===1){
-          myApp.services.tasks.update(element,
-            {
-              title: page.querySelector('#jeveux').value,
-              category: page.querySelector('#categorie').value,
-              description: page.querySelector('#description').value,
 
-            }
-          );
+            element.data.title = page.querySelector('#jeveux').value;
+            element.data.category = page.querySelector('#categorie').value;
+            element.data.description = page.querySelector('#description').value;
+
+          if(page.querySelector("#switchFini").checked){
+            element.data.state = 'completed'
+            element.querySelector(".checkbox").style.display = "none";
+            document.querySelector('#completed-list').insertBefore(element, element.data.urgent ? element.firstChild : null);
+          }
+          else{
+            let checkbox = element.querySelector(".checkbox");
+            checkbox.style.display = "";
+            checkbox.checked = true;
+            element.data.state = 'enCours';
+
+            document.querySelector('#inProgress-list').insertBefore(element, element.data.urgent ? element.firstChild : null);
+          }
+          myApp.services.save()
+          //myApp.services.tasks.update(element,data);
           document.querySelector('#myNavigator').popPage();
         }
       })
     }
-
-
   }
 };
 
