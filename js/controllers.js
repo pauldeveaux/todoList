@@ -83,7 +83,6 @@ myApp.controllers = {
             task.dateLimite[0] = leading0(newDate.getDate(),2)
             task.dateLimite[1] = leading0(newDate.getMonth(),2)
             task.dateLimite[2] = newDate.getFullYear().toString()
-
           }
 
           myApp.services.fixtures.push(task);
@@ -103,6 +102,11 @@ myApp.controllers = {
     page.querySelector('#categorie').value = element.data.category;
     page.querySelector('#description').value = element.data.description;
     page.querySelector('#switchFini').checked = (element.parentNode.id === "completed-list")
+    page.querySelector("#switch1").checked = element.data.highlight;
+    page.querySelector("#switch2").checked = element.data.urgent;
+
+    if(!isNaN(element.data.dateLimite[1]))
+      page.querySelector("#datePicker").value = element.data.dateLimite[2] + '-' + element.data.dateLimite[1] + '-' + element.data.dateLimite[0];
 
     page.querySelector('[component="button/save-task"]').onclick = function(){
       ons.notification.confirm('Confirmer les modifications').then(function(ok){
@@ -111,22 +115,33 @@ myApp.controllers = {
             element.data.title = page.querySelector('#jeveux').value;
             element.data.category = page.querySelector('#categorie').value;
             element.data.description = page.querySelector('#description').value;
+            element.data.urgent = page.querySelector('#switch2').checked;
+            element.data.highlight = page.querySelector("#switch1").checked;
+
+            let date = document.querySelector("#datePicker")
+            if(date.value != null) {
+              let d = date.value.split("-")
+              let newDate = new Date( d[0], d[1] , d[2]);
+              element.data.dateLimite[0] = leading0(newDate.getDate(),2)
+              element.data.dateLimite[1] = leading0(newDate.getMonth(),2)
+              element.data.dateLimite[2] = newDate.getFullYear().toString()
+            }
 
           if(page.querySelector("#switchFini").checked){
             element.data.state = 'completed'
             element.querySelector(".checkbox").style.display = "none";
             document.querySelector('#completed-list').insertBefore(element, element.data.urgent ? element.firstChild : null);
           }
-          else{
+          else if(element.data.state==='completed'){
             let checkbox = element.querySelector(".checkbox");
             checkbox.style.display = "";
             checkbox.checked = true;
             element.data.state = 'enCours';
-
             document.querySelector('#inProgress-list').insertBefore(element, element.data.urgent ? element.firstChild : null);
           }
           myApp.services.save()
-          //myApp.services.tasks.update(element,data);
+          element.parentNode.removeChild(element)
+          myApp.services.tasks.create(element.data)
           document.querySelector('#myNavigator').popPage();
         }
       })

@@ -117,17 +117,6 @@ myApp.services = {
       myApp.services.save();
     },
 
-
-    update: function(taskItem, data) {
-      if (data.title !== taskItem.data.title) {
-        taskItem.querySelector('.center').innerHTML = data.title;
-      }
-      taskItem.data = data;
-      console.log(taskItem.data)
-      myApp.services.save();
-    },
-
-
     deleteAll : function () {
       document.querySelectorAll("ons-list-item").forEach(taskItem => {
         myApp.services.animator.deleteTask(taskItem, function (){taskItem.parentNode.removeChild(taskItem);})
@@ -172,8 +161,6 @@ myApp.services = {
     this.fixtures = JSON.parse(localStorage.getItem("tasks"))
     if(this.fixtures!=null) this.fixtures.forEach(task => myApp.services.tasks.create(task))
     else this.fixtures = []
-
-  }
-
+  },
 };
 
