@@ -21,6 +21,7 @@ myApp.services = {
         data.title +
         '</div>' +
         '<div class="right">' +
+        '<div class="date"></div>' +
         '<ons-icon style="color: grey; padding-left: 4px" icon="ion-ios-trash-outline, material:md-delete"></ons-icon>' +
         '</div>' +
         '</ons-list-item>'
@@ -28,6 +29,12 @@ myApp.services = {
 
       // Store data within the element.
       taskItem.data = data;
+
+      // dates
+      if(!(isNaN(data.dateLimite[0]) || isNaN(data.dateLimite[1]) || isNaN(data.dateLimite[2]))){
+        taskItem.querySelector(".date").innerHTML = data.dateLimite[0] + "/" + data.dateLimite[1] + "/" + data.dateLimite[2];
+      }
+
 
       // Highlight
       if(taskItem.data.highlight) taskItem.classList.add("highlight")
@@ -100,6 +107,7 @@ myApp.services = {
         myApp.services.animator.deleteTask(taskItem, function (){taskItem.parentNode.removeChild(taskItem);})
       })
       myApp.services.fixtures = []
+      localStorage.clear();
     },
   },
 
@@ -130,6 +138,7 @@ myApp.services = {
   },
 
   save : function () {
+    // TODO regarder pourquoi le tableau pour les dates ne va pas dans le local storage
     let storageData = JSON.stringify(myApp.services.fixtures)
     localStorage.setItem("tasks", storageData)
   },
@@ -137,10 +146,8 @@ myApp.services = {
   load : function () {
     this.fixtures = JSON.parse(localStorage.getItem("tasks"))
     this.fixtures.forEach(task => myApp.services.tasks.create(task))
-    console.log(this.fixtures )
+
   }
 
 };
 
-
-// console.log(document.getElementById("detailsDescription"));

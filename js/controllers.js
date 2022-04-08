@@ -41,8 +41,10 @@ myApp.controllers = {
         var categorie = document.getElementById('categorie').value;
         var description = document.getElementById('description').value;
 
-        if(jeveux==="" || categorie ==="" || description === ""){
-          ons.notification.toast('Complétez le formualire merci !', {
+
+
+        if(jeveux==""){
+          ons.notification.toast('Veuillez donner un nom à la tâche', {
             timeout: 2000
           });
         }
@@ -69,8 +71,20 @@ myApp.controllers = {
             description: description,
             highlight: boolSurligner,
             urgent: boolUrgent,
-            state: 'enAttente'
+            state: 'enAttente',
+            dateLimite : []
           }
+
+          let date = document.querySelector("#datePicker")
+          if(date.value != null) {
+            let d = date.value.split("-")
+            let newDate = new Date( d[0], d[1] , d[2]);
+            task.dateLimite[0] = leading0(newDate.getDate(),2)
+            task.dateLimite[1] = leading0(newDate.getMonth(),2)
+            task.dateLimite[2] = newDate.getFullYear().toString()
+
+          }
+
           myApp.services.fixtures.push(task);
           myApp.services.tasks.create(task);
           document.querySelector('#myNavigator').popPage();
@@ -90,7 +104,7 @@ myApp.controllers = {
     page.querySelector('#description').value = element.data.description;
 
     page.querySelector('[component="button/save-task"]').onclick = function(){
-      ons.notification.confirm('Faire le changement ?').then(function(ok){
+      ons.notification.confirm('Confirmer les modifications').then(function(ok){
         if(ok===1){
           myApp.services.tasks.update(element,
             {
@@ -102,8 +116,6 @@ myApp.controllers = {
           );
           document.querySelector('#myNavigator').popPage();
 
-        }else{
-          ons.notification.alert('Annuler');
         }
       })
     }
@@ -113,10 +125,10 @@ myApp.controllers = {
 };
 
 
-console.log(myApp.services)
 
+function leading0(num, size) {
+  num = num.toString();
+  while (num.length < size) num = "0" + num;
+  return num;
+}
 
-
-
-
-/**formulaire */
