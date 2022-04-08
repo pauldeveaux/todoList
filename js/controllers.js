@@ -112,9 +112,12 @@ myApp.controllers = {
               title: page.querySelector('#jeveux').value,
               category: page.querySelector('#categorie').value,
               description: page.querySelector('#description').value,
+              highlight: page.querySelector('#switch1').checked
 
             }
           );
+          document.querySelector('#default-category-list ons-list-item ons-radio').checked = true;
+          document.querySelector('#default-category-list ons-list-item').updateCategoryView();
           document.querySelector('#myNavigator').popPage();
         }
       })
