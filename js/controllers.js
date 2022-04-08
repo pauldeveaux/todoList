@@ -130,14 +130,13 @@ myApp.controllers = {
           if(page.querySelector("#switchFini").checked){
             element.data.state = 'completed'
             element.querySelector(".checkbox").style.display = "none";
-            document.querySelector('#completed-list').insertBefore(element, element.data.urgent ? element.firstChild : null);
           }
           else if(element.data.state==='completed'){
             let checkbox = element.querySelector(".checkbox");
             checkbox.style.display = "";
             checkbox.checked = true;
             element.data.state = 'enCours';
-            document.querySelector('#inProgress-list').insertBefore(element, element.data.urgent ? element.firstChild : null);
+            
           }
           myApp.services.save()
           element.parentNode.removeChild(element)
