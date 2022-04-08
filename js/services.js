@@ -94,26 +94,7 @@ myApp.services = {
       myApp.services.save();
     },
 
-        // On task creation/update, updates the category list adding new categories if needed.
-    updateAdd: function(categoryLabel) {
-      var categoryId = myApp.services.categories.parseId(categoryLabel);
-      var categoryItem = document.querySelector('#menuPage ons-list-item[category-id="' + categoryId + '"]');
 
-      if (!categoryItem) {
-        // If the category doesn't exist already, create it.
-        myApp.services.categories.create(categoryLabel);
-      }
-    },
-    // On task deletion/update, updates the category list removing categories without tasks if needed.
-    updateRemove: function(categoryLabel) {
-      var categoryId = myApp.services.categories.parseId(categoryLabel);
-      var categoryItem = document.querySelector('#tabbarPage ons-list-item[category="' + categoryId + '"]');
-
-      if (!categoryItem) {
-        // If there are no tasks under this category, remove it.
-        myApp.services.categories.remove(document.querySelector('#custom-category-list ons-list-item[category-id="' + categoryId + '"]'));
-      }
-    },
 
     update: function(taskItem, data) {
       if (data.title !== taskItem.data.title) {
@@ -137,6 +118,65 @@ myApp.services = {
       myApp.services.save();
     },
 
+
+    deleteAll : function () {
+      document.querySelectorAll("ons-list-item").forEach(taskItem => {
+        myApp.services.animator.deleteTask(taskItem, function (){taskItem.parentNode.removeChild(taskItem);})
+      })
+      myApp.services.fixtures = []
+      localStorage.clear();
+    },
+  },
+
+    ////////////////////////
+  // CATEGORIES//
+  ////////////////////////
+
+  categories: {
+
+    create: function(categoryLabel) {
+      var categoryId = myApp.services.categories.parseId(categoryLabel);
+
+      // Category item template.
+      var categoryItem = ons.createElement(
+        '<ons-list-item tappable category-id="' + categoryId + '">' +
+          '<div class="left">' +
+            '<ons-radio name="categoryGroup" input-id="radio-'  + categoryId + '"></ons-radio>' +
+          '</div>' +
+          '<label class="center" for="radio-' + categoryId + '">' +
+            (categoryLabel || 'No category') +
+          '</label>' +
+        '</ons-list-item>'
+      );
+
+      // Adds filtering functionality to this category item.
+      myApp.services.categories.bindOnCheckboxChange(categoryItem);
+
+      // Attach the new category to the corresponding list.
+      document.querySelector('#custom-category-list').appendChild(categoryItem);
+    },
+    
+        // On task creation/update, updates the category list adding new categories if needed.
+    updateAdd: function(categoryLabel) {
+      var categoryId = myApp.services.categories.parseId(categoryLabel);
+      var categoryItem = document.querySelector('#menuPage ons-list-item[category-id="' + categoryId + '"]');
+
+      if (!categoryItem) {
+        // If the category doesn't exist already, create it.
+        myApp.services.categories.create(categoryLabel);
+      }
+    },
+    // On task deletion/update, updates the category list removing categories without tasks if needed.
+    updateRemove: function(categoryLabel) {
+      var categoryId = myApp.services.categories.parseId(categoryLabel);
+      var categoryItem = document.querySelector('#tabbarPage ons-list-item[category="' + categoryId + '"]');
+
+      if (!categoryItem) {
+        // If there are no tasks under this category, remove it.
+        myApp.services.categories.remove(document.querySelector('#custom-category-list ons-list-item[category-id="' + categoryId + '"]'));
+      }
+    },
+    
     // Deletes a category item and its listeners.
     remove: function(categoryItem) {
       if (categoryItem) {
@@ -167,16 +207,7 @@ myApp.services = {
     parseId: function(categoryLabel) {
       return categoryLabel ? categoryLabel.replace(/\s\s+/g, ' ').toLowerCase() : '';
     },
-
-    deleteAll : function () {
-      document.querySelectorAll("ons-list-item").forEach(taskItem => {
-        myApp.services.animator.deleteTask(taskItem, function (){taskItem.parentNode.removeChild(taskItem);})
-      })
-      myApp.services.fixtures = []
-      localStorage.clear();
-    },
   },
-
   ////////////////////////
   // Initial Data Service //
   ////////////////////////

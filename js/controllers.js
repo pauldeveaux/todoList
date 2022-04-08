@@ -32,6 +32,16 @@ myApp.controllers = {
 
   },
 
+
+  menuPage: function(page) {
+    // Set functionality for 'No Category' and 'All' default categories respectively.
+    myApp.services.categories.bindOnCheckboxChange(page.querySelector('#default-category-list ons-list-item[category-id=""]'));
+    myApp.services.categories.bindOnCheckboxChange(page.querySelector('#default-category-list ons-list-item:not([category-id])'));
+
+    // Change splitter animation depending on platform.
+    document.querySelector('#mySplitter').left.setAttribute('animation', ons.platform.isAndroid() ? 'overlay' : 'reveal');
+  },
+
   newTaskPage: function(page){
     Array.prototype.forEach.call(page.querySelectorAll('[component="button/save-task"]'), function(element){
       element.onclick = function() {
@@ -88,6 +98,7 @@ myApp.controllers = {
 
           myApp.services.fixtures.push(task);
           myApp.services.tasks.create(task);
+          document.querySelector('#default-category-list ons-list-item ons-radio').checked = true;
           document.querySelector('#myNavigator').popPage();
         }
 
@@ -117,7 +128,6 @@ myApp.controllers = {
             }
           );
           document.querySelector('#default-category-list ons-list-item ons-radio').checked = true;
-          document.querySelector('#default-category-list ons-list-item').updateCategoryView();
           document.querySelector('#myNavigator').popPage();
         }
       })
