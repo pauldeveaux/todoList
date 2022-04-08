@@ -30,8 +30,11 @@ myApp.services = {
       // Store data within the element.
       taskItem.data = data;
 
-      // dates
+      // dates             S1
       if(!(isNaN(data.dateLimite[0]) || isNaN(data.dateLimite[1]) || isNaN(data.dateLimite[2]))){
+        // S7
+        let newDate = new Date( data.dateLimite[2],data.dateLimite[1]-1 ,data.dateLimite[0]);
+        if(Date.parse(newDate)-Date.parse(new Date())<0) return
         taskItem.querySelector(".date").innerHTML = data.dateLimite[0] + "/" + data.dateLimite[1] + "/" + data.dateLimite[2];
       }
 
@@ -42,7 +45,7 @@ myApp.services = {
 
       // Récupération des elements
       let checkbox = taskItem.children[1].children[0]
-      let poubelleIcon = taskItem.children[3].children[0];
+      let poubelleIcon = taskItem.children[3].children[1];
 
 
 
@@ -138,7 +141,6 @@ myApp.services = {
   },
 
   save : function () {
-    // TODO regarder pourquoi le tableau pour les dates ne va pas dans le local storage
     let storageData = JSON.stringify(myApp.services.fixtures)
     localStorage.setItem("tasks", storageData)
   },

@@ -43,7 +43,7 @@ myApp.controllers = {
 
 
 
-        if(jeveux==""){
+        if(jeveux===""){
           ons.notification.toast('Veuillez donner un nom à la tâche', {
             timeout: 2000
           });
@@ -75,6 +75,7 @@ myApp.controllers = {
             dateLimite : []
           }
 
+          // S1
           let date = document.querySelector("#datePicker")
           if(date.value != null) {
             let d = date.value.split("-")
@@ -115,7 +116,6 @@ myApp.controllers = {
             }
           );
           document.querySelector('#myNavigator').popPage();
-
         }
       })
     }
